@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Fitness</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #4caf50; /* Verde */
+      color: #ffffff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      background-color: #45a049;
+      border-radius: 4px;
+    }
+
+    nav a:hover {
+      background-color: #3e8e41;
+    }
+
+    main {
+      padding: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    section {
+      margin-bottom: 2rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    form label {
+      font-weight: bold;
+    }
+
+    form input, form select, form textarea {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #ffffff;
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .progress-bar {
+      width: 100%;
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .progress-bar-fill {
+      height: 20px;
+      background-color: #4caf50;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #4caf50;
+      color: #ffffff;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>App Fitness</h1>
+    <nav>
+      <a href="#" onclick="showSection('home')">Início</a>
+      <a href="#" onclick="showSection('cadastro')">Cadastro</a>
+      <a href="#" onclick="showSection('login')">Login</a>
+      <a href="#" onclick="showSection('treino')">Treino Sugerido</a>
+      <a href="#" onclick="showSection('progresso')">Progresso</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Tela Inicial -->
+    <section id="home">
+      <h2>Bem-vindo ao App Fitness</h2>
+      <p>Personalize seu treino de acordo com seu biotipo e alcance seus objetivos!</p>
+    </section>
+
+    <!-- Tela de Cadastro -->
+    <section id="cadastro" class="hidden">
+      <h2>Cadastro</h2>
+      <form id="cadastroForm">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" required>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" required>
+
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" required>
+
+        <label for="biotipo">Biotipo:</label>
+        <select id="biotipo" required>
+          <option value="ectomorfo">Ectomorfo</option>
+          <option value="mesomorfo">Mesomorfo</option>
+          <option value="endomorfo">Endomorfo</option>
+        </select>
+
+        <button type="submit">Cadastrar</button>
+      </form>
+    </section>
+
+    <!-- Tela de Login -->
+    <section id="login" class="hidden">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <label for="loginEmail">E-mail:</label>
+        <input type="email" id="loginEmail" required>
+
+        <label for="loginSenha">Senha:</label>
+        <input type="password" id="loginSenha" required>
+
+        <button type="submit">Entrar</button>
+      </form>
+    </section>
+
+    <!-- Tela de Treino Sugerido -->
+    <section id="treino" class="hidden">
+      <h2>Treino Sugerido</h2>
+      <p id="treinoSugerido">Seu treino será exibido aqui após o login.</p>
+    </section>
+
+    <!-- Tela de Progresso -->
+    <section id="progresso" class="hidden">
+      <h2>Progresso do Treino</h2>
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+      </div>
+      <p id="progressoTexto">Progresso: 0%</p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2023 App Fitness - Todos os direitos reservados.
+  </footer>
+
+  <script>
+    // Função para alternar entre as telas
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll("section");
+      sections.forEach(section => section.classList.add("hidden"));
+      document.getElementById(sectionId).classList.remove("hidden");
+    }
+
+    // Simulação de cadastro
+    document.getElementById("cadastroForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      alert("Cadastro realizado com sucesso!");
+      showSection("login");
+    });
+
+    // Simulação de login
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const biotipo = localStorage.getItem("biotipo") || "mesomorfo"; // Recupera biotipo do cadastro
+      let treino = "";
+
+      if (biotipo === "ectomorfo") {
+        treino = "Treino focado em ganho de massa muscular: 4 séries de 12 repetições.";
+      } else if (biotipo === "mesomorfo") {
+        treino = "Treino equilibrado: 3 séries de 10 repetições.";
+      } else if (biotipo === "endomorfo") {
+        treino = "Treino focado em perda de gordura: 5 séries de 15 repetições.";
+      }
+
+      document.getElementById("treinoSugerido").textContent = treino;
+      showSection("treino");
+    });
+
+    // Atualizar progresso
+    let progresso = 0;
+    document.getElementById("progresso").addEventListener("click", function() {
+      progresso += 10;
+      if (progresso > 100) progresso = 100;
+
+      document.getElementById("progressBarFill").style.width = progresso + "%";
+      document.getElementById("progressoTexto").textContent = `Progresso: ${progresso}%`;
+    });
+
+    // Salvar biotipo no localStorage durante o cadastro
+    document.getElementById("cadastroForm").addEventListener("submit", function(event) {
+      const biotipo = document.getElementById("biotipo").value;
+      localStorage.setItem("biotipo", biotipo);
+    });
+  </script>
+</body>
+</html>
